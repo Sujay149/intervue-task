@@ -20,46 +20,49 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ activeTab, onTabChange, showKick 
   };
 
   return (
-    <div className="w-80 bg-card border border-border rounded-xl shadow-lg overflow-hidden flex-shrink-0">
-      <div className="flex border-b border-border">
+    <div className="w-80 bg-card border border-border rounded-xl shadow-lg overflow-hidden flex-shrink-0 flex flex-col">
+      <div className="flex border-b border-border bg-muted/30">
         <button
           onClick={() => onTabChange('chat')}
-          className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
+          className={`flex-1 px-4 py-3 text-sm font-semibold transition-all ${
             activeTab === 'chat'
-              ? 'text-foreground border-b-2 border-primary'
-              : 'text-muted-foreground hover:text-foreground'
+              ? 'text-primary border-b-2 border-primary bg-background'
+              : 'text-muted-foreground hover:text-foreground hover:bg-background/50'
           }`}
         >
           Chat
         </button>
         <button
           onClick={() => onTabChange('participants')}
-          className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
+          className={`flex-1 px-4 py-3 text-sm font-semibold transition-all ${
             activeTab === 'participants'
-              ? 'text-foreground border-b-2 border-primary'
-              : 'text-muted-foreground hover:text-foreground'
+              ? 'text-primary border-b-2 border-primary bg-background'
+              : 'text-muted-foreground hover:text-foreground hover:bg-background/50'
           }`}
         >
           Participants
         </button>
       </div>
 
-      <div className="h-80 overflow-y-auto">
+      <div className="flex-1 h-80 overflow-y-auto bg-background/50">
         {activeTab === 'chat' ? (
-          <div className="p-4 space-y-4">
+          <div className="p-4 space-y-3">
             {state.chatMessages.map((msg) => (
               <div
                 key={msg.id}
                 className={`flex flex-col ${msg.oderId === participantId ? 'items-end' : 'items-start'}`}
               >
-                <span className="text-xs text-primary font-medium mb-1">{msg.userName}</span>
+                <span className="text-xs text-primary font-semibold mb-1 px-1">{msg.userName}</span>
                 <div className={`chat-bubble ${msg.oderId === participantId ? 'outgoing' : 'incoming'}`}>
                   {msg.text}
                 </div>
               </div>
             ))}
             {state.chatMessages.length === 0 && (
-              <p className="text-muted-foreground text-sm text-center py-8">No messages yet</p>
+              <div className="flex flex-col items-center justify-center h-full py-16">
+                <p className="text-muted-foreground text-sm">No messages yet</p>
+                <p className="text-muted-foreground text-xs mt-1">Start the conversation!</p>
+              </div>
             )}
           </div>
         ) : (
@@ -98,18 +101,19 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ activeTab, onTabChange, showKick 
       </div>
 
       {activeTab === 'chat' && (
-        <div className="p-3 border-t border-border flex gap-2">
+        <div className="p-3 border-t border-border flex gap-2 bg-muted/10">
           <input
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
             placeholder="Type a message..."
-            className="flex-1 px-3 py-2 bg-input rounded-lg text-sm focus:outline-none"
+            className="flex-1 px-4 py-2.5 bg-input border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
           />
           <button
             onClick={handleSend}
-            className="p-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90"
+            disabled={!message.trim()}
+            className="p-2.5 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Send className="w-4 h-4" />
           </button>
