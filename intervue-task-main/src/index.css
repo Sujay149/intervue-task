@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 13%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 13%;
+    --card-header: 0 0% 30%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 13%;
+
+    --primary: 252 95% 67%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 13%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 252 95% 67%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 94%;
+    --ring: 252 95% 67%;
+
+    --radius: 0.5rem;
+
+    --timer: 0 72% 51%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 0 0% 7%;
+    --foreground: 0 0% 95%;
+
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 95%;
+    --card-header: 0 0% 20%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 252 95% 67%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 252 95% 67%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 95%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 15%;
+    --ring: 252 95% 67%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  }
+}
+
+@layer components {
+  .badge-primary {
+    @apply inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-primary-foreground rounded-full text-sm font-medium;
+  }
+
+  .card-poll {
+    @apply rounded-xl border border-border overflow-hidden shadow-sm;
+  }
+
+  .card-poll-header {
+    @apply bg-card-header text-primary-foreground px-6 py-4;
+  }
+
+  .card-poll-body {
+    @apply bg-card p-4;
+  }
+
+  .option-card {
+    @apply flex items-center gap-3 p-4 bg-input rounded-lg border-2 border-transparent transition-all duration-200 cursor-pointer hover:border-primary/30;
+  }
+
+  .option-card.selected {
+    @apply border-primary bg-primary/5;
+  }
+
+  .option-number {
+    @apply w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-semibold;
+  }
+
+  .result-bar {
+    @apply h-12 rounded-lg bg-primary flex items-center gap-3 px-4 text-primary-foreground transition-all duration-700 ease-out;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-8 py-3 bg-primary text-primary-foreground rounded-full font-medium transition-all duration-200 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center px-8 py-3 bg-transparent border-2 border-primary text-primary rounded-full font-medium transition-all duration-200 hover:bg-primary/5;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center px-4 py-2 text-primary hover:bg-primary/5 rounded-lg transition-all duration-200;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-4 bg-input rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-200;
+  }
+
+  .role-card {
+    @apply p-6 border-2 border-border rounded-xl cursor-pointer transition-all duration-200 hover:border-primary/50;
+  }
+
+  .role-card.selected {
+    @apply border-primary bg-primary/5;
+  }
+
+  .chat-bubble {
+    @apply px-4 py-2 rounded-2xl max-w-[80%];
+  }
+
+  .chat-bubble.incoming {
+    @apply bg-card-header text-primary-foreground;
+  }
+
+  .chat-bubble.outgoing {
+    @apply bg-primary text-primary-foreground ml-auto;
+  }
+
+  .fab {
+    @apply fixed bottom-6 right-6 w-14 h-14 bg-primary text-primary-foreground rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all duration-200;
+  }
+}
+
+@layer utilities {
+  .animate-spin-slow {
+    animation: spin 1.5s linear infinite;
+  }
+
+  .animate-bar-grow {
+    animation: barGrow 0.7s ease-out forwards;
+  }
+
+  @keyframes barGrow {
+    from {
+      width: 0%;
+    }
+    to {
+      width: var(--bar-width);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.4s ease-out forwards;
+  }
+
+  .animate-fade-in-up-delay-1 {
+    animation: fadeInUp 0.4s ease-out 0.1s forwards;
+    opacity: 0;
+  }
+
+  .animate-fade-in-up-delay-2 {
+    animation: fadeInUp 0.4s ease-out 0.2s forwards;
+    opacity: 0;
+  }
+
+  .animate-fade-in-up-delay-3 {
+    animation: fadeInUp 0.4s ease-out 0.3s forwards;
+    opacity: 0;
+  }
+}
